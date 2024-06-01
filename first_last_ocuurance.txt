@@ -1,0 +1,17 @@
+class Solution {
+public:
+    pair<long, long> indexes(vector<long long> v, long long x) {
+        pair<long, long> ans = {-1, -1}; // Initialize the answer pair to -1, -1
+
+        for (long i = 0; i < v.size(); ++i) {
+            if (v[i] == x) {
+                if (ans.first == -1) {
+                    ans.first = i; // First occurrence
+                }
+                ans.second = i; // Update last occurrence
+            }
+        }
+
+        return ans;
+    }
+};

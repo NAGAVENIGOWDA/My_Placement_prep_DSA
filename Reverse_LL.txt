@@ -1,0 +1,58 @@
+//{ Driver Code Starts
+//Initial Template for C++// C program to find n'th Node in linked list
+#include <stdio.h>
+#include <stdlib.h>
+#include<iostream>
+using namespace std;
+
+/* Link list Node */
+struct Node {
+    int data;
+    struct Node *next;
+    Node(int x)
+    {
+        data = x;
+        next = NULL;
+    }
+};
+
+
+
+// } Driver Code Ends
+/* Linked List Node structure:
+
+struct Node
+{
+    int data;
+    struct Node *next;
+}
+
+*/
+
+class Solution
+{
+    public:
+    //Function to reverse a linked list.
+    struct Node* reverseList(struct Node *head)
+    {
+        
+           if(head==NULL) return NULL;
+          
+           Node* prev=NULL;
+           Node*cur=head;
+           Node * next=NULL;
+           while(cur!=NULL){
+               next=cur->next;
+               cur->next=prev;
+               prev=cur;
+               cur=next;
+            
+           }
+           
+          head=prev;
+          
+        return head;
+    }
+    
+};
+    
