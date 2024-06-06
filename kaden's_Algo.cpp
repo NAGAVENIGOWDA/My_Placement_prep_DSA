@@ -14,7 +14,6 @@ class Solution{
         // Your code here
         long long maxim=INT_MIN;
         long long sum=0;
-        long long curr=0;
         for(int i=0;i<n;i++){
             sum=sum+arr[i];
             maxim=max(maxim,sum);

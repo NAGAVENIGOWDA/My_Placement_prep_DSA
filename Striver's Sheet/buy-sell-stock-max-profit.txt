@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& arr) {
+    int mini=arr[0];
+    int maxi=INT_MIN;
+    for(int i=1;i<arr.size();i++){
+        if(arr[i] > mini) {
+            if(arr[i]-mini > maxi)
+            maxi=arr[i]-mini;
+        }
+        else {
+        if(arr[i]<mini) mini=arr[i];
+        }
+    }
+    if(maxi <=0) return 0;
+    return maxi;
+      
+    }
+};

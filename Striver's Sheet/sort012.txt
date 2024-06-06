@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void sortColors(vector<int>& a) {
+        int n=a.size();
+        int count[3]={0,0,0};
+        for(int i=0;i<n;i++){
+            if(a[i]==0) count[0]++;
+            else if (a[i]==1) count[1]++;
+            else count[2]++;
+        }
+        int index = 0;
+        int c=0;
+        for (int c = 0; c < 3; ++c) {
+            while (count[c] > 0) {
+                a[index++] = c;
+                count[c]--;
+            }
+        }
+    }
+};
