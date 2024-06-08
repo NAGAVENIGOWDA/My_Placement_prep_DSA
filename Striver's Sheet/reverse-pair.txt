@@ -1,0 +1,73 @@
+class Solution {
+public:
+    int reversePairs(vector<int>& nums) {
+     
+     return mergesort(nums,0,nums.size()-1);
+        
+    }
+
+    int mergesort(vector<int>&nums,int low,int high){
+        int count=0;
+        if(low>=high) return count;
+
+        int mid=(low+high)/2;
+        count+=mergesort(nums,low,mid);
+        count+=mergesort(nums,mid+1,high);
+        count+=countpairs(nums,low,mid,high);
+        merge(nums,low,mid,high);
+
+        return count;
+    }
+
+    void merge(vector<int>& a, int low, int mid, int high) {
+    int left = low;
+    int right = mid + 1;
+    vector<int> tmp;
+    
+    while (left <= mid && right <= high) {
+        if (a[left] <= a[right]) {
+            tmp.push_back(a[left]);
+            left++;
+        } else {
+            tmp.push_back(a[right]);
+            right++;
+        }
+    }
+
+    // Add remaining elements from the left subarray
+    while (left <= mid) {
+        tmp.push_back(a[left]);
+        left++;
+    }
+    
+    // Add remaining elements from the right subarray
+    while (right <= high) {
+        tmp.push_back(a[right]);
+        right++;
+    }
+
+    // Copy elements from tmp back to the original array a
+    
+    for (int i = low; i <= high; i++) {
+        a[i] = tmp[i - low];
+    }
+}
+
+
+    int countpairs(vector<int>&a ,int low,int mid,int high){
+
+        int count=0;
+        int right=mid+1;
+        for(int i=low;i<=mid;i++){
+            while(right<=high && (long long)a[i] > 2LL * a[right]) {
+                right++;
+            }
+
+            count=count+(right-(mid+1));
+        }
+
+    return count;
+    }
+
+
+};
