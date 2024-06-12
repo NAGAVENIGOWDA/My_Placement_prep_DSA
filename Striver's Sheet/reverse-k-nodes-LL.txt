@@ -1,0 +1,115 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+
+   ListNode* reverseLinkedList(ListNode *head)
+{
+ 
+   ListNode* temp = head;  
+   
+  
+   ListNode* prev = NULL;  
+   
+  
+   while(temp != NULL){  
+    
+       ListNode* front = temp->next;  
+     
+       temp->next = prev;  
+       
+      
+       prev = temp;  
+       
+       
+       temp = front; 
+   }
+  
+   return prev;  
+}
+
+
+ListNode* getKthNode(ListNode* tmp, int k){
+   
+    k -= 1; 
+    ListNode*temp=tmp;
+
+    while(temp != NULL && k > 0){
+      
+        k--; 
+        
+        temp = temp -> next; 
+    }
+    
+
+    return temp; 
+}
+
+// Function to reverse nodes in groups of K
+ListNode* reverseKGroup(ListNode* head, int k){
+   
+    ListNode* temp = head; 
+
+
+    ListNode* prevLast = NULL; 
+ 
+    while(temp != NULL){
+        // Get the Kth node of the current group
+        ListNode* kThNode = getKthNode(temp, k); 
+
+        // If the Kth node is NULL
+        // (not a complete group)
+        if(kThNode == NULL){
+            // If there was a previous group,
+            // link the last node to the current node
+            if(prevLast){
+                prevLast -> next = temp; 
+            }
+            
+            // Exit the loop
+            break; 
+        }
+        
+     
+        ListNode* nextNode = kThNode -> next; 
+
+        // Disconnect the Kth node
+        kThNode -> next = NULL; 
+
+        // Reverse the nodes from
+        // temp to the Kth node
+        reverseLinkedList(temp); 
+        
+        // Adjust the head if the reversal
+        // starts from the head
+        if(temp == head){
+            head = kThNode;
+        }else{
+            // Link the last node of the previous
+            // group to the reversed group
+            prevLast -> next = kThNode; 
+        }
+
+        // Update the pointer to the
+        // last node of the previous group
+        prevLast = temp; 
+
+        // Move to the next group
+        temp = nextNode; 
+    }
+    
+    // Return the head of the
+    // modified linked list
+    return head; 
+}
+
+
+};
