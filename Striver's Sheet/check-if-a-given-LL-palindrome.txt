@@ -1,0 +1,73 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+
+private:
+ListNode* reverseLL(ListNode* head){
+    if(head==NULL ||head->next==NULL){
+        return head;
+    }
+
+    ListNode*cur=head,*prev=NULL,*nxt=NULL;
+    while(cur!=NULL){
+        nxt=cur->next;
+        cur->next=prev;
+        prev=cur;
+        cur=nxt;
+    }
+
+    return prev;
+}
+public:
+
+    bool isPalindrome(ListNode* head) {
+
+        //need to find the middle ele
+        //if length=even -1st middle ele
+
+        ListNode*slow=head,*fast=head;
+
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+
+        //now slow is pointing to 1st middle ele
+
+        //reverse 2nd half of LL
+
+        ListNode* newHead=reverseLL(slow->next);
+
+        ListNode *ptr1=head;
+        ListNode *ptr2=newHead;
+
+        while(ptr2!=NULL){
+            if(ptr1->val !=ptr2->val){
+                reverseLL(newHead);
+                return false;
+            }
+
+            ptr1=ptr1->next;
+            ptr2=ptr2->next;
+        }
+
+    reverseLL(newHead);
+
+    //dont forget to reverse second half back;
+    return true;
+
+
+
+
+
+       
+    }
+};
