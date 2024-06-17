@@ -1,0 +1,43 @@
+class Solution {
+public:
+
+//no unique requirement
+
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        
+        vector<vector<int>>ans;
+        vector<int>ds;
+        f(0,target,candidates,ds,ans);
+        return ans;
+    }
+
+    void f(int ind,int T,vector<int>arr,vector<int>ds,vector<vector<int>>&ans){
+
+
+            if(ind==arr.size()){
+                if(T==0){
+                    ans.push_back(ds);
+                
+                }
+                
+                    return ;
+                
+            }
+
+            if(arr[ind]<=T){
+                ds.push_back(arr[ind]);
+                f(ind,T-arr[ind],arr,ds,ans); // unlimited number of times.
+                ds.pop_back();
+            }
+            f(ind+1,T,arr,ds,ans);
+
+
+            
+        }
+
+    
+};
+
+
+
