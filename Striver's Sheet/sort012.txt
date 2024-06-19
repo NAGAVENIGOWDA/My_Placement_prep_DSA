@@ -1,20 +1,66 @@
-class Solution {
-public:
-    void sortColors(vector<int>& a) {
-        int n=a.size();
-        int count[3]={0,0,0};
-        for(int i=0;i<n;i++){
-            if(a[i]==0) count[0]++;
-            else if (a[i]==1) count[1]++;
-            else count[2]++;
-        }
-        int index = 0;
-        int c=0;
-        for (int c = 0; c < 3; ++c) {
-            while (count[c] > 0) {
-                a[index++] = c;
-                count[c]--;
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+
+// } Driver Code Ends
+class Solution
+{
+    public:
+    void sort012(int a[], int n)
+    {
+        //DNF sort
+        
+        int low=0;
+        int mid=0;
+        int high=n-1;
+        while(mid<=high){
+            if(a[mid]==0){
+                swap(a[low],a[mid]);
+                low++;
+                mid++;
             }
+            else if(a[mid]==1){
+                mid++;
+            }
+            else{
+                swap(a[mid],a[high]);
+                high--;
+            }
+            
         }
     }
+    
 };
+
+//{ Driver Code Starts.
+int main() {
+
+    int t;
+    cin >> t;
+
+    while(t--){
+        int n;
+        cin >>n;
+        int a[n];
+        for(int i=0;i<n;i++){
+            cin >> a[i];
+        }
+
+        Solution ob;
+        ob.sort012(a, n);
+
+        for(int i=0;i<n;i++){
+            cout << a[i]  << " ";
+        }
+
+        cout << endl;
+        
+        
+    }
+    return 0;
+}
+
+
+// } Driver Code Ends
