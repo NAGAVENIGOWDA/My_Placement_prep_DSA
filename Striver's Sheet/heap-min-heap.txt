@@ -1,0 +1,71 @@
+#include <bits/stdc++.h> 
+
+vector<int> heap;
+
+// Function to heapify the subtree rooted at index i
+void heapify(int i) {
+    int smallest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    if (l < heap.size() && heap[l] < heap[smallest]) {
+        smallest = l;
+    }
+    if (r < heap.size() && heap[r] < heap[smallest]) {
+        smallest = r;
+    }
+    if (smallest != i) {
+        swap(heap[i], heap[smallest]);
+        heapify(smallest);
+    }
+}
+
+// Function to insert an element into the heap
+void insert(int ele) {
+    heap.push_back(ele);
+    int i = heap.size() - 1;
+
+    // Fix the min heap property if it is violated
+    while (i != 0 && heap[(i - 1) / 2] > heap[i]) {
+        swap(heap[i], heap[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}
+
+// Function to remove and return the minimum element from the heap
+int remove() {
+    int ans=-1;
+    if (heap.size() == 0) {
+        return -1;
+    }
+    if(heap.size()==1){
+        ans=heap[0];
+        heap.pop_back();
+        return ans;
+        
+    }
+    ans = heap[0];
+    heap[0] = heap[heap.size() - 1];
+    heap.pop_back();
+    heapify(0);
+
+    return ans;
+}
+
+// Function to process the queries
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    vector<int> ans;
+
+    for (int i = 0; i < q.size(); i++) {
+        if (q[i][0] == 0) {
+            insert(q[i][1]);
+        } else {
+            int ele = remove();
+            ans.push_back(ele);
+        }
+    }
+
+    return ans;
+
+ 
+}
