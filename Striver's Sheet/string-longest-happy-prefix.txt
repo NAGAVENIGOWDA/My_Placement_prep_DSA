@@ -1,0 +1,117 @@
+class Solution {
+public:
+/*
+A string is called a happy prefix if is a non-empty prefix which is also a suffix (excluding itself).
+
+Given a string s, return the longest happy prefix of s. Return an empty string "" if no such prefix exists.
+Input: s = "level"
+Output: "l"
+Explanation: s contains 4 prefix excluding itself ("l", "le", "lev", "leve"), and suffix ("l", "el", "vel", "evel"). The largest prefix which is also suffix is given by "l".
+Example 2:
+
+Input: s = "ababab"
+Output: "abab"
+Explanation: "abab" is the largest prefix which is also suffix. They can overlap in the original string.
+*/
+    string longestPrefix(string s) {
+        vector<int>lps(s.size(),0);
+        int len=0;
+        int i=1;
+        while(i<s.size()){
+            if(s[i]==s[len]){
+                len++;
+                lps[i]=len;
+                i++;
+                
+            }
+            else{
+                if(len!=0){
+                    len=lps[len-1];
+                }
+                else{
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+
+    return s.substr(0,len);
+    }
+};
+
+
+//2nd variation -Longest Prefix Suffix
+
+Given a string of characters, find the length of the longest proper prefix which is also a proper suffix.
+
+NOTE: Prefix and suffix can be overlapping but they should not be equal to the entire string.
+
+
+//{ Driver Code Starts
+//Initial template for C++ 
+ 
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+
+//User function template for C++
+
+class Solution{
+  public:		
+	int lps(string s) {
+	    // Your code goes here
+	    
+       vector<int>lps(s.size(),0);
+        int len=0;
+        int i=1;
+        while(i<s.size()){
+            if(s[i]==s[len]){
+                len++;
+                lps[i]=len;
+                i++;
+                
+            }
+            else{
+                if(len!=0){
+                    len=lps[len-1];
+                }
+                else{
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+    
+    return lps[s.size()-1];
+     
+	}
+};
+
+//{ Driver Code Starts.
+
+int main() 
+{
+   
+
+   	ios_base::sync_with_stdio(0);
+    cin.tie(NULL);
+    cout.tie(NULL);
+   
+   	int t;
+   	cin >> t;
+   	while(t--)
+   	{
+   		string str;
+   		cin >> str;
+
+   		Solution ob;
+
+   		cout << ob.lps(str) << "\n";
+   	}
+
+    return 0;
+}
+
+// } Driver Code Ends
