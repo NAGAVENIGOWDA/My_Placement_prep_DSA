@@ -36,8 +36,8 @@ class Solution {
             else{
                 if(A[mid]<=k && k<=A[high]){
                     low=mid+1;
-                }
-                
+                } 
+               
                 else{
                     high=mid-1;
                 }
