@@ -8,6 +8,8 @@ using namespace std;
 // User function Template for C++
 
 class Solution {
+    /*in=abc++
+    out:  (a+(b+c))*/
   public:
     string postToInfix(string expr) {
      // Stack to store intermediate results

@@ -9,6 +9,7 @@ using namespace std;
 
 class Solution {
   public:
+  //inp=abc++  out:+a+bc
     string postToPre(string post_exp) {
         // Write your code here
         

@@ -11,7 +11,8 @@ class Solution {
   public:
     string preToPost(string pre_exp) {
         
-        
+        //pref-  +a+bc
+        //post  -- abc++
         int len=pre_exp.size();
         stack<string>st;
         for(int i=len-1;i>=0;i--){

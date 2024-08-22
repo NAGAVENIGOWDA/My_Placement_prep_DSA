@@ -1,0 +1,81 @@
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        
+        
+        int n=matrix.size();
+
+       // vector<vector<int>>dp(n,vector<int>(n,0));
+         /*
+         int minAns=INT_MAX;
+        for(int i=0;i<n;i++){
+            int ans= fTab(n-1,i,matrix,dp);
+            minAns=min(minAns,ans);
+        }
+
+        return minAns;
+        
+        */
+
+        vector<int>prev(n,0);
+
+        for(int k=0;k<n;k++){
+            prev[k]=matrix[0][k];
+        }
+         
+        for(int i=1;i<n;i++){
+            vector<int>cur(n,0);
+            for(int j=0;j<n;j++){
+                
+
+        int up = matrix[i][j] + prev[j];
+        int digLeft = matrix[i][j];
+
+         if(j>0) digLeft+=prev[j-1];
+         else digLeft+=1e9;
+
+        int digRight = matrix[i][j] ;
+
+          if(j < n-1) digRight+=prev[j+1];
+          else digRight+=1e9;
+
+         cur[j] = min(up, min(digLeft, digRight));
+
+            }
+            prev=cur;
+        }
+        
+        int minAns=INT_MAX;
+        for(int j=0;j<n;j++){
+
+         minAns=min(minAns,prev[j]);
+        }
+
+        return minAns;
+    }
+
+    
+
+    int f(int i,int j,vector<vector<int>>& matrix,vector<vector<int>>&dp){
+
+       int n = matrix.size();
+        // If the column index is out of bounds, return a large number
+        if (j < 0 || j >= n) {
+            return 1e9; 
+        }
+        // If it reaches the 0th row, return the matrix value
+        if (i == 0) {
+            return matrix[i][j];
+        }
+        // If already computed, return the cached value
+        if (dp[i][j] != -1) {
+            return dp[i][j];
+        }
+        // Compute the minimum falling path sum
+        int up = matrix[i][j] + f(i-1, j, matrix, dp);
+        int digLeft = matrix[i][j] + f(i-1, j-1, matrix, dp);
+        int digRight = matrix[i][j] + f(i-1, j+1, matrix, dp);
+
+        return dp[i][j] = min(up, min(digLeft, digRight));
+    }
+};

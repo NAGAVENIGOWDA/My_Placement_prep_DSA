@@ -35,7 +35,7 @@ public:
 	                //left or right??
 	                if((mid %2 ==0 && A[mid]==A[mid+1] )  ||  mid%2==1 && A[mid]==A[mid-1]){
 	                    //we are on the left
-	                    low=mid+1;
+	                    low=mid+1; 
 	                }
 	                else{
 	                    //we are on the right

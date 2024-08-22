@@ -9,6 +9,8 @@ using namespace std;
 
 class Solution {
   public:
+  //in- +a+bc
+    //out-  (a+(b+c))
     string preToInfix(string pre_exp) {
         // Stack to store intermediate results
         stack<string> st;

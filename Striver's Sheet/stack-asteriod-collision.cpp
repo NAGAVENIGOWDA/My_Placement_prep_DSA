@@ -12,7 +12,7 @@ class Solution {
         for(int i = 1; i<N; i++)
         {
             if(asteroids[i]<0 && st.top()>0)
-            {
+            {//collision will happen
                 int f = 1;
                 if(abs(asteroids[i])<abs(st.top())) continue;
                 else if(abs(asteroids[i]) == abs(st.top())) st.pop();

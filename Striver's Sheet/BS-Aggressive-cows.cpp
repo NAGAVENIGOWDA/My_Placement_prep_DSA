@@ -10,9 +10,6 @@ using namespace std;
 class Solution {
 public:
 
-//PICK K ELEMENTS such that min distance bw elments is maximum 'k' is given (how many elements need to be picked)
-//follows the same approach
-
 bool isPossibleToPlaceCows(int dist,int cows,vector<int>&a,int n){
     //initially 
     int cowsCnt=1;
@@ -48,7 +45,7 @@ bool isPossibleToPlaceCows(int dist,int cows,vector<int>&a,int n){
         sort(stalls.begin(),stalls.end());
         
         int low=1;
-        
+        int ans=-1;
         int high=stalls[n-1]-stalls[0];
         
         //[1,dis(last-first)]
@@ -59,6 +56,7 @@ bool isPossibleToPlaceCows(int dist,int cows,vector<int>&a,int n){
             
             if(isPossibleToPlaceCows(mid,k,stalls,n)){
                 //possible ans
+                ans=mid;
                 low=mid+1;
             }
             
@@ -71,7 +69,7 @@ bool isPossibleToPlaceCows(int dist,int cows,vector<int>&a,int n){
         
         //not possible return previously obtained dist
         
-        return high;
+        return ans;
     }
 };
 
