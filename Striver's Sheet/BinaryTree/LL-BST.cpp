@@ -1,139 +1,75 @@
-//{ Driver Code Starts
-//Initial Template for C++
+#include <iostream>
+using namespace std;
 
-#include <bits/stdc++.h> 
-using namespace std; 
-
-struct LNode
-{
-    int data;
-    struct LNode* next;
-    
-    LNode(int x){
-        data = x;
-        next = NULL;
-    }
+// Definition for singly-linked list node
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
-struct TNode  
-{  
-    
-    int data;  
-    struct TNode* left;  
-    struct TNode* right; 
-    TNode(int x)
-    {
-        data=x;
-        left=right=NULL;
-    }
-}; 
-
-void preOrder(TNode* node)  
-{  
-    if (node == NULL)  
-        return;  
-    cout<<node->data<<" ";  
-    preOrder(node->left);  
-    preOrder(node->right);  
-} 
-
-
-// } Driver Code Ends
-//User function Template for C++
-
-
-//User function Template for C++
-
-/* 
-//Linked List
-struct LNode
-{
-    int data;
-    struct LNode* next;
-    
-    LNode(int x){
-        data = x;
-        next = NULL;
-    }
+// Definition for binary tree node
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-//Tree
-struct TNode  
-{  
-    
-    int data;  
-    struct TNode* left;  
-    struct TNode* right; 
-    TNode(int x)
-    {
-        data=x;
-        left=right=NULL;
-    }
-}; */
-class Solution{
-  public:
-     TNode* sortedListToBST(LNode *&head, int n) {
-        if (n <= 0) return NULL;
-        
-        // Recursively construct the left subtree
-        TNode* left = sortedListToBST(head, n / 2);
-        
-        // head now points to the middle node of the sorted list
-        TNode* root = new TNode(head->data);
-        root->left = left;
-        
-        // Move to the next element
-        head = head->next;
-        
-        // Recursively construct the right subtree with the remaining nodes
-        root->right = sortedListToBST(head, n - n / 2 - 1);
-        
-        return root;
-    }
-    
-    int countNodes(LNode *head) {
-        int count = 0;
-        while (head != NULL) {
-            count++;
-            head = head->next;
-        }
-        return count;
-    }
-    
-    TNode* sortedListToBST(LNode *head) {
-        int n = countNodes(head);
-        return sortedListToBST(head, n);
-    }
-};
+// Function to find the middle of the linked list
+ListNode* findMiddle(ListNode* start, ListNode* end) {
+    ListNode* slow = start;
+    ListNode* fast = start;
 
-//{ Driver Code Starts.
-
-int main() 
-{ 
-    int t;
-    cin>>t;
-    while(t--)
-    {
-        int n;
-        cin>>n;
-
-        int data;
-        cin>>data;
-        LNode *head = new LNode(data);
-        LNode *tail = head;
-        for (int i = 0; i < n-1; ++i)
-        {
-            cin>>data;
-            tail->next = new LNode(data);
-            tail = tail->next;
-        }
-        Solution ob;
-        TNode* Thead = ob.sortedListToBST(head);
-        preOrder(Thead);
-        cout<<"\n";
-        
+    while (fast != end && fast->next != end) {
+        slow = slow->next;
+        fast = fast->next->next;
     }
-    return 0;
+
+    return slow;
 }
 
-// } Driver Code Ends
+// Function to convert sorted linked list to a balanced BST
+TreeNode* sortedListToBST(ListNode* start, ListNode* end) {
+    if (start == end) return NULL;
+
+    // Find the middle element
+    ListNode* mid = findMiddle(start, end);
+
+    // Create the root node of the BST
+    TreeNode* root = new TreeNode(mid->val);
+
+    // Recursively construct the left and right subtrees
+    root->left = sortedListToBST(start, mid);
+    root->right = sortedListToBST(mid->next, end);
+
+    return root;
+}
+
+// Function to print the in-order traversal of the BST
+void inOrder(TreeNode* root) {
+    if (!root) return;
+    inOrder(root->left);
+    cout << root->val << " ";
+    inOrder(root->right);
+}
+
+int main() {
+    // Create a sorted linked list
+    ListNode* head = new ListNode(1);
+    head->next = new ListNode(2);
+    head->next->next = new ListNode(3);
+    head->next->next->next = new ListNode(4);
+    head->next->next->next->next = new ListNode(5);
+    head->next->next->next->next->next = new ListNode(6);
+    head->next->next->next->next->next->next = new ListNode(7);
+
+    // Convert sorted linked list to balanced BST
+    TreeNode* root = sortedListToBST(head, NULL);
+
+    // Print in-order traversal of the BST
+    cout << "In-order traversal of the constructed BST: ";
+    inOrder(root);
+
+    return 0;
+}

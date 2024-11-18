@@ -27,8 +27,6 @@ private:
         
         for(auto adjNode: adj[node]){
             if(color[adjNode]==-1){
-                //not colored
-                color[adjNode]=!col;
                 if(!dfsCheck(adjNode,!col,adj,color)) return false;
             }
             else{

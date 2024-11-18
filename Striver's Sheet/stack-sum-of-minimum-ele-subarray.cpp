@@ -16,7 +16,7 @@ class Solution {
             int cnt = 1;
             while (!s1.empty() && arr[i] < s1.top().first) {
                 cnt += s1.top().second;
-                s1.pop();
+                s1.pop();   
             }
             s1.push({arr[i], cnt});
             left[i] = cnt;

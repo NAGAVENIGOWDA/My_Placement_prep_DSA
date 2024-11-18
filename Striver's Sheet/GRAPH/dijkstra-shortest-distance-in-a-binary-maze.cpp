@@ -35,9 +35,8 @@ class Solution {
 
             auto top = q.front();
             q.pop();
-
             int step = top.first;
-
+    
             int row = top.second.first;
             int col = top.second.second;
 
